@@ -717,78 +717,70 @@ const Portfolio = () => {
         </div>
       </section>
 
-      <section className="min-h-screen flex items-center px-6 py-20 relative">
+<section className="min-h-screen flex items-center px-6 py-20 relative">
         <div className="max-w-6xl mx-auto w-full">
-          <div className="mb-12 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700">
+          <div className="mb-16 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700">
             <span className="text-sm font-mono text-violet-500 mb-2 block">01 / EXPERTISE</span>
             <h2 className="text-5xl md:text-6xl font-bold mb-4">Tech Stack</h2>
-            <p className="text-gray-500 text-lg">Proficiency levels based on production experience</p>
+            <p className="text-gray-500 text-lg">Technologies I work with</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            {skillsWithLevel.map((skill, index) => (
-              <div 
-                key={skill.name}
-                className="animate-on-scroll opacity-0 translate-x-10 transition-all duration-700 group"
-                style={{ transitionDelay: `${index * 0.05}s` }}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg font-bold text-white group-hover:text-violet-500 transition-colors">
-                      {skill.name}
-                    </span>
-                    <span className="text-xs px-2 py-1 bg-gray-900 rounded-full text-gray-500">
-                      {skill.category}
-                    </span>
-                  </div>
-                  <span className="text-sm font-mono text-gray-500 group-hover:text-violet-500 transition-colors">
-                    {skill.level}%
-                  </span>
-                </div>
-                
-                <div className="relative h-3 bg-gray-900 rounded-full overflow-hidden">
-                  <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-20`} />
-                  
-                  <div 
-                    className={`absolute inset-y-0 left-0 bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out group-hover:shadow-lg`}
-                    style={{ 
-                      width: `${skill.level}%`,
-                      transitionDelay: `${index * 0.05}s`
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
-                  </div>
-                  
-                  <div 
-                    className={`absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity`}
-                    style={{ 
-                      left: `calc(${skill.level}% - 4px)`,
-                      boxShadow: `0 0 10px 2px rgba(139, 92, 246, 0.6)`
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {Object.entries(skills).map(([category, items], index) => (
               <div 
                 key={category}
-                className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 p-6 border border-gray-900 rounded-2xl hover:border-violet-500 bg-gradient-to-br from-gray-950 to-black hover:scale-105 transform hover:shadow-xl hover:shadow-violet-500/10"
+                className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700"
                 style={{ transitionDelay: `${index * 0.1}s` }}
               >
-                <div className="text-3xl font-bold text-violet-500 mb-2">
-                  {items.length}
-                </div>
-                <div className="text-sm font-semibold text-gray-400">
-                  {category}
-                </div>
-                <div className="text-xs text-gray-600 mt-1">
-                  Technologies
+                <div className="h-full p-8 border border-gray-900/50 rounded-2xl bg-gradient-to-br from-gray-950/50 to-black/50 backdrop-blur-sm hover:border-violet-500/30 transition-all group">
+                  <div className="mb-6">
+                    <div className="inline-flex items-center justify-center w-12 h-12 mb-4 bg-gradient-to-br from-violet-500/10 to-purple-500/10 rounded-xl group-hover:from-violet-500/20 group-hover:to-purple-500/20 transition-all">
+                      <span className="text-2xl">{
+                        category === 'Backend' ? '⚙️' :
+                        category === 'Frontend' ? '🎨' :
+                        category === 'Database' ? '💾' : '🚀'
+                      }</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-1 group-hover:text-violet-400 transition-colors">
+                      {category}
+                    </h3>
+                    <p className="text-xs text-gray-600 font-mono">{items.length} technologies</p>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    {items.map((item, i) => (
+                      <div 
+                        key={item} 
+                        className="flex items-center gap-3 text-sm text-gray-400 group-hover:text-gray-300 transition-all"
+                        style={{ transitionDelay: `${i * 0.05}s` }}
+                      >
+                        <div className="w-1 h-1 bg-violet-500/60 rounded-full" />
+                        <span className="font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700" style={{ transitionDelay: '0.4s' }}>
+            <div className="p-6 text-center border border-gray-900/50 rounded-xl bg-black/30 backdrop-blur-sm">
+              <div className="text-3xl font-bold text-violet-500 mb-1">6+</div>
+              <div className="text-xs text-gray-500">Years Experience</div>
+            </div>
+            <div className="p-6 text-center border border-gray-900/50 rounded-xl bg-black/30 backdrop-blur-sm">
+              <div className="text-3xl font-bold text-violet-500 mb-1">15+</div>
+              <div className="text-xs text-gray-500">Technologies</div>
+            </div>
+            <div className="p-6 text-center border border-gray-900/50 rounded-xl bg-black/30 backdrop-blur-sm">
+              <div className="text-3xl font-bold text-violet-500 mb-1">50+</div>
+              <div className="text-xs text-gray-500">Projects Done</div>
+            </div>
+            <div className="p-6 text-center border border-gray-900/50 rounded-xl bg-black/30 backdrop-blur-sm">
+              <div className="text-3xl font-bold text-violet-500 mb-1">9</div>
+              <div className="text-xs text-gray-500">Companies</div>
+            </div>
           </div>
         </div>
       </section>
@@ -850,69 +842,115 @@ const Portfolio = () => {
         </div>
       </section>
 
-      <section className="min-h-screen flex items-center px-6 py-20">
-        <div className="max-w-4xl mx-auto w-full">
-          <div className="mb-12 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700">
-            <span className="text-sm font-mono text-violet-500 mb-2 block">03 / JOURNEY</span>
-            <h2 className="text-5xl md:text-6xl font-bold">Experience</h2>
-            <p className="text-gray-500 mt-4">Click to expand for more details</p>
+<section className="min-h-screen flex items-center px-6 py-20 relative overflow-hidden">
+        {/* Animated background gradient orbs */}
+        <div className="absolute top-20 left-10 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-fuchsia-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        
+        <div className="max-w-5xl mx-auto w-full relative z-10">
+          <div className="mb-16 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-px w-12 bg-gradient-to-r from-violet-500 to-transparent" />
+              <span className="text-sm font-mono text-violet-400">03 / JOURNEY</span>
+            </div>
+            <h2 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-white via-violet-200 to-white bg-clip-text text-transparent">
+              Experience
+            </h2>
+            <p className="text-gray-400 mt-6 text-lg">Click to expand for more details</p>
           </div>
 
-          <div className="space-y-1">
+          <div className="space-y-4">
             {experiences.map((exp, index) => (
               <div 
                 key={index}
-                className="animate-on-scroll opacity-0 translate-x-10 transition-all duration-700 group border-b border-gray-900 hover:bg-gray-950"
+                className="animate-on-scroll opacity-0 translate-x-10 transition-all duration-700 group relative"
                 style={{ transitionDelay: `${index * 0.05}s` }}
               >
-                <div 
-                  className="p-6 cursor-pointer"
-                  onClick={() => toggleExpand(index)}
-                  onMouseEnter={() => setCursorVariant('hover')}
-                  onMouseLeave={() => setCursorVariant('default')}
-                >
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3">
-                    <div>
-                      <h3 className="text-xl font-bold group-hover:text-violet-500 transition-colors flex items-center gap-2">
-                        {exp.company}
-                        {expandedExp === index ? <ChevronUp className="w-5 h-5 animate-bounce" /> : <ChevronDown className="w-5 h-5" />}
-                      </h3>
-                      <p className="text-gray-500">{exp.role}</p>
-                      <span className="text-xs text-gray-700 font-mono">{exp.type}</span>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm text-gray-600 font-mono">
-                      <span>{exp.period}</span>
-                      <span>•</span>
-                      <span>{exp.location}</span>
-                    </div>
-                  </div>
-                  
-                  <p className="text-sm text-gray-600 mb-3">{exp.description}</p>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {exp.tech.map((tech) => (
-                      <span key={tech} className="text-xs text-gray-700 font-mono hover:text-violet-500 transition-colors">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {expandedExp === index && (
-                  <div className="px-6 pb-6 space-y-3 animate-slide-down">
-                    <div className="pt-4 border-t border-gray-900">
-                      <h4 className="text-sm font-bold text-violet-500 mb-3">Key Responsibilities & Achievements:</h4>
-                      <div className="space-y-2">
-                        {exp.details.map((detail, i) => (
-                          <div key={i} className="flex items-start gap-3 text-sm text-gray-500">
-                            <div className="w-1.5 h-1.5 bg-violet-500 rounded-full mt-2 flex-shrink-0" />
-                            <p>{detail}</p>
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-violet-500/0 via-violet-500/5 to-violet-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl blur-xl" />
+                
+                <div className="relative bg-black/40 backdrop-blur-sm border border-gray-900 rounded-xl overflow-hidden group-hover:border-violet-500/30 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-violet-500/10">
+                  <div 
+                    className="p-8 cursor-pointer relative"
+                    onClick={() => toggleExpand(index)}
+                    onMouseEnter={() => setCursorVariant('hover')}
+                    onMouseLeave={() => setCursorVariant('default')}
+                  >
+                    {/* Subtle top border accent */}
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-2xl font-bold group-hover:text-violet-400 transition-colors duration-300">
+                            {exp.company}
+                          </h3>
+                          <div className="transition-transform duration-300 group-hover:scale-110">
+                            {expandedExp === index ? 
+                              <ChevronUp className="w-5 h-5 text-violet-400" /> : 
+                              <ChevronDown className="w-5 h-5 text-gray-500 group-hover:text-violet-400 transition-colors" />
+                            }
                           </div>
-                        ))}
+                        </div>
+                        <p className="text-gray-300 text-lg mb-2">{exp.role}</p>
+                        <span className="text-xs text-violet-400/70 font-mono uppercase tracking-wider px-3 py-1 bg-violet-500/10 rounded-full inline-block">
+                          {exp.type}
+                        </span>
+                      </div>
+                      <div className="flex flex-col gap-2 text-sm text-gray-500 font-mono">
+                        <div className="flex items-center gap-2">
+                          <div className="w-1 h-1 bg-violet-500 rounded-full animate-pulse" />
+                          <span>{exp.period}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-1 h-1 bg-gray-700 rounded-full" />
+                          <span>{exp.location}</span>
+                        </div>
                       </div>
                     </div>
+                    
+                    <p className="text-gray-400 mb-5 leading-relaxed">{exp.description}</p>
+                    
+                    <div className="flex flex-wrap gap-2">
+                      {exp.tech.map((tech) => (
+                        <span 
+                          key={tech} 
+                          className="text-xs text-gray-500 font-mono px-3 py-1.5 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-violet-500/50 hover:text-violet-400 hover:bg-violet-500/5 transition-all duration-300 cursor-default"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                )}
+
+                  {expandedExp === index && (
+                    <div className="px-8 pb-8 animate-slide-down">
+                      <div className="pt-6 border-t border-gray-900/50">
+                        <div className="flex items-center gap-2 mb-5">
+                          <div className="h-px flex-1 bg-gradient-to-r from-violet-500/50 to-transparent" />
+                          <h4 className="text-sm font-bold text-violet-400 uppercase tracking-wider">
+                            Key Highlights
+                          </h4>
+                          <div className="h-px flex-1 bg-gradient-to-l from-violet-500/50 to-transparent" />
+                        </div>
+                        <div className="space-y-4">
+                          {exp.details.map((detail, i) => (
+                            <div 
+                              key={i} 
+                              className="flex items-start gap-4 text-gray-400 group/item hover:text-gray-300 transition-colors duration-300"
+                            >
+                              <div className="relative mt-2 flex-shrink-0">
+                                <div className="w-2 h-2 bg-violet-500 rounded-full group-hover/item:scale-125 transition-transform duration-300" />
+                                <div className="absolute inset-0 bg-violet-500 rounded-full animate-ping opacity-20" />
+                              </div>
+                              <p className="leading-relaxed">{detail}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -938,38 +976,80 @@ const Portfolio = () => {
         </div>
       </section>
 
-      <section className="px-6 py-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl md:text-7xl font-bold mb-8 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700">
-            Let's create<br />something amazing
+<section className="relative px-6 py-32 overflow-hidden">
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-950/20 via-transparent to-emerald-950/20"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(139,92,246,0.1),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(16,185,129,0.1),transparent_50%)]"></div>
+        
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          {/* Floating decorative elements */}
+          <div className="absolute -top-20 left-1/4 w-32 h-32 bg-violet-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-20 right-1/4 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          
+          <h2 className="text-6xl md:text-8xl font-bold mb-6 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700">
+            <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent inline-block animate-gradient">
+              Let's create
+            </span>
+            <br />
+            <span className="text-white">something amazing</span>
           </h2>
           
-          <div className="flex flex-wrap justify-center gap-4 mb-8 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700" style={{ transitionDelay: '0.2s' }}>
+          <p className="text-gray-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto animate-on-scroll opacity-0 translate-y-10 transition-all duration-700" style={{ transitionDelay: '0.1s' }}>
+            Ready to bring your ideas to life? Let's collaborate and build something extraordinary together.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row justify-center gap-6 mb-16 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700" style={{ transitionDelay: '0.2s' }}>
             <a 
               href="mailto:mtegarps@gmail.com"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-violet-500 text-white font-medium rounded-full hover:bg-violet-600 transition-all text-lg hover:scale-110 hover:shadow-2xl hover:shadow-violet-500/50"
+              className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-violet-600 to-violet-500 text-white font-semibold rounded-2xl hover:shadow-2xl hover:shadow-violet-500/50 transition-all duration-300 hover:scale-105 overflow-hidden"
             >
-              <Mail className="w-5 h-5" />
-              mtegarps@gmail.com
+              <span className="absolute inset-0 bg-gradient-to-r from-violet-400 to-fuchsia-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <Mail className="w-5 h-5 relative z-10 group-hover:rotate-12 transition-transform" />
+              <span className="relative z-10">mtegarps@gmail.com</span>
             </a>
             
             <a 
               href="https://wa.me/6285215212323"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-green-500 text-white font-medium rounded-full hover:bg-green-600 transition-all text-lg hover:scale-110 hover:shadow-2xl hover:shadow-green-500/50"
+              className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-emerald-600 to-green-500 text-white font-semibold rounded-2xl hover:shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 overflow-hidden"
             >
-              <Phone className="w-5 h-5" />
-              +62 852-1521-2323
+              <span className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <Phone className="w-5 h-5 relative z-10 group-hover:rotate-12 transition-transform" />
+              <span className="relative z-10">+62 852-1521-2323</span>
             </a>
           </div>
 
-          <div className="mt-20 pt-10 border-t border-gray-900 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-600 text-sm">
-            <p>© 2025 Moch Tegar Puja Septimansyah</p>
-            <div className="flex gap-6">
-              <a href="mailto:mtegarps@gmail.com" className="hover:text-violet-500 transition-colors hover:scale-110 transform">Email</a>
-              <a href="https://www.linkedin.com/in/tegar-p-septimansyah-914390107/" className="hover:text-violet-500 transition-colors hover:scale-110 transform">LinkedIn</a>
-              <a href="https://wa.me/6285215212323" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition-colors hover:scale-110 transform">WhatsApp</a>
+          {/* Glassmorphism footer */}
+          <div className="mt-24 pt-8 border-t border-white/5 backdrop-blur-sm bg-white/[0.02] rounded-3xl p-8 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700" style={{ transitionDelay: '0.3s' }}>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+              <p className="text-gray-500 text-sm">© 2025 Moch Tegar Puja Septimansyah. Crafted with passion.</p>
+              <div className="flex gap-8">
+                <a 
+                  href="mailto:mtegarps@gmail.com" 
+                  className="text-gray-500 hover:text-violet-400 transition-all duration-300 hover:scale-110 transform text-sm font-medium relative group"
+                >
+                  Email
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-400 to-fuchsia-400 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a 
+                  href="https://www.linkedin.com/in/tegar-p-septimansyah-914390107/" 
+                  className="text-gray-500 hover:text-violet-400 transition-all duration-300 hover:scale-110 transform text-sm font-medium relative group"
+                >
+                  LinkedIn
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-400 to-fuchsia-400 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a 
+                  href="https://wa.me/6285215212323" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-500 hover:text-emerald-400 transition-all duration-300 hover:scale-110 transform text-sm font-medium relative group"
+                >
+                  WhatsApp
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-400 to-teal-400 group-hover:w-full transition-all duration-300"></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
