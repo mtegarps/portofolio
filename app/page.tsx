@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Mail, Linkedin, MapPin, ArrowRight, ExternalLink, Sparkles, Circle, Terminal, Zap, ChevronDown, ChevronUp, Phone } from 'lucide-react';
+import { Mail, Linkedin, MapPin, ArrowRight, ExternalLink, Sparkles, Circle, Terminal, Zap, ChevronDown, ChevronUp, Phone, Menu, X } from 'lucide-react';
 
 const Portfolio = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -10,6 +10,9 @@ const Portfolio = () => {
   const [cursorVariant, setCursorVariant] = useState('default');
   const [expandedExp, setExpandedExp] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [navbarVisible, setNavbarVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -17,7 +20,21 @@ const Portfolio = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      const currentScrollY = window.scrollY;
+      setScrollY(currentScrollY);
+      
+      if (currentScrollY > 100) {
+        if (currentScrollY > lastScrollY) {
+          setNavbarVisible(false);
+        } else {
+          setNavbarVisible(true);
+        }
+      } else {
+        setNavbarVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+
       const sections = document.querySelectorAll('section');
       sections.forEach((section, index) => {
         const rect = section.getBoundingClientRect();
@@ -46,7 +63,7 @@ const Portfolio = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [lastScrollY]);
 
   const experiences = [
     {
@@ -371,12 +388,112 @@ const Portfolio = () => {
     setExpandedExp(expandedExp === index ? null : index);
   };
 
+  const scrollToSection = (index: number) => {
+    const sections = document.querySelectorAll('section');
+    sections[index]?.scrollIntoView({ behavior: 'smooth' });
+    setMobileMenuOpen(false);
+  };
+
+  const navItems = [
+    { label: 'Home', index: 0 },
+    { label: 'Achievements', index: 1 },
+    { label: 'Skills', index: 2 },
+    { label: 'Projects', index: 3 },
+    { label: 'Experience', index: 4 },
+    { label: 'Contact', index: 6 }
+  ];
+
   if (!mounted) {
     return null;
   }
 
   return (
     <div className="bg-black text-white relative">
+      {/* Navbar */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        navbarVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}>
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="backdrop-blur-xl bg-black/50 border border-gray-800/50 rounded-full px-6 py-3 shadow-2xl shadow-violet-500/10">
+            <div className="flex items-center justify-between">
+              {/* Logo */}
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-violet-500 to-purple-500 rounded-lg flex items-center justify-center">
+                  <Terminal className="w-5 h-5 text-white" />
+                </div>
+                <span className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-white to-violet-500">
+                  MTP
+                </span>
+              </div>
+
+              {/* Desktop Nav Items */}
+              <div className="hidden lg:flex items-center gap-1">
+                {navItems.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => scrollToSection(item.index)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                      activeSection === item.index
+                        ? 'bg-violet-500 text-white shadow-lg shadow-violet-500/50'
+                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://wa.me/6285215212323"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden sm:flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600 transition-all hover:scale-105 hover:shadow-lg hover:shadow-green-500/50"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span className="hidden xl:inline">WhatsApp</span>
+                </a>
+                <a
+                  href="mailto:mtegarps@gmail.com"
+                  className="hidden md:flex items-center gap-2 px-4 py-2 bg-violet-500 text-white rounded-full text-sm font-medium hover:bg-violet-600 transition-all hover:scale-105 hover:shadow-lg hover:shadow-violet-500/50"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span className="hidden xl:inline">Hire Me</span>
+                </a>
+                
+                {/* Mobile Menu Button */}
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="lg:hidden p-2 text-gray-400 hover:text-white transition-colors"
+                >
+                  {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+              <div className="lg:hidden mt-4 pt-4 border-t border-gray-800/50 space-y-2 animate-slide-down">
+                {navItems.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => scrollToSection(item.index)}
+                    className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                      activeSection === item.index
+                        ? 'bg-violet-500 text-white'
+                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </nav>
+
       <div 
         className="fixed w-4 h-4 border-2 border-violet-500 rounded-full pointer-events-none z-50 mix-blend-difference transition-all duration-150"
         style={{
